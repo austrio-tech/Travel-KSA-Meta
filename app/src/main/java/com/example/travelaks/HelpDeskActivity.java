@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -39,12 +38,13 @@ public class HelpDeskActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         FirebaseFirestore.getInstance()
             .collection("faqs")
-            .whereEqualTo("isVisible", true)
-            .orderBy("order", Query.Direction.ASCENDING)
+            .orderBy("order")
             .get()
             .addOnSuccessListener(snap -> {
                 progressBar.setVisibility(View.GONE);
                 for (QueryDocumentSnapshot doc : snap) {
+                    Boolean visible = doc.getBoolean("isVisible");
+                    if (Boolean.FALSE.equals(visible)) continue; // skip hidden FAQs client-side
                     String q = doc.getString("question");
                     String a = doc.getString("answer");
                     if (q != null && a != null) faqs.add(new FaqItem(q, a));

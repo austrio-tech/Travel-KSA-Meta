@@ -26,6 +26,13 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        // Session check — skip login screen if already signed in
+        if (mAuth.getCurrentUser() != null) {
+            startActivity(new Intent(LoginActivity.this, Cites.class));
+            finish();
+            return;
+        }
+
         EditText etEmail = findViewById(R.id.et_email);
         EditText etPassword = findViewById(R.id.et_password);
         Button btnContinue = findViewById(R.id.btn_continue);

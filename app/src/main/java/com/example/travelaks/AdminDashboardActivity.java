@@ -1,14 +1,12 @@
 package com.example.travelaks;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -25,12 +23,11 @@ public class AdminDashboardActivity extends AppCompatActivity
     private DrawerLayout drawerLayout;
     private FirebaseFirestore db;
 
-    // Stat card data: {color, icon, label, collection}
     private static final Object[][] CARDS = {
         {"#2563EB", "👥", "Users",       "users",       AdminManageUsersActivity.class},
-        {"#059669", "🏙️", "Cities",      "cities",      AdminManageCitiesActivity.class},
+        {"#059669", "🏙", "Cities",      "cities",      AdminManageCitiesActivity.class},
         {"#D97706", "🏨", "Hotels",      "hotels",      AdminManageHotelsActivity.class},
-        {"#7C3AED", "🏛️", "Attractions", "attractions", AdminManageAttractionsActivity.class},
+        {"#7C3AED", "🏛", "Attractions", "attractions", AdminManageAttractionsActivity.class},
         {"#DC2626", "🎭", "Activities",  "activities",  AdminManageActivitiesActivity.class},
         {"#0891B2", "❓", "FAQs",        "faqs",        AdminManageFaqsActivity.class},
     };
@@ -49,6 +46,7 @@ public class AdminDashboardActivity extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle("Dashboard");
 
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.navigation_view);
@@ -60,11 +58,13 @@ public class AdminDashboardActivity extends AppCompatActivity
 
         setupStatCards();
 
-        findViewById(R.id.btn_seed).setOnClickListener(v -> confirmSeed());
-        findViewById(R.id.btn_open_app).setOnClickListener(v -> {
-            startActivity(new Intent(this, Cites.class));
-            finish();
-        });
+        findViewById(R.id.btn_logout).setOnClickListener(v -> confirmLogout());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupStatCards();
     }
 
     private void setupStatCards() {
@@ -72,10 +72,10 @@ public class AdminDashboardActivity extends AppCompatActivity
             View cardView = findViewById(CARD_IDS[i]);
             Object[] data = CARDS[i];
 
-            String color      = (String) data[0];
-            String icon       = (String) data[1];
-            String label      = (String) data[2];
-            String collection = (String) data[3];
+            String color      = (String)  data[0];
+            String icon       = (String)  data[1];
+            String label      = (String)  data[2];
+            String collection = (String)  data[3];
             Class<?> target   = (Class<?>) data[4];
 
             ((CardView) cardView).setCardBackgroundColor(android.graphics.Color.parseColor(color));
@@ -87,36 +87,28 @@ public class AdminDashboardActivity extends AppCompatActivity
 
             db.collection(collection).get()
                 .addOnSuccessListener(snap -> tvCount.setText(String.valueOf(snap.size())))
-                .addOnFailureListener(e -> tvCount.setText("–"));
+                .addOnFailureListener(e  -> tvCount.setText("–"));
 
             cardView.setOnClickListener(v ->
                 startActivity(new Intent(this, target)));
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setupStatCards(); // refresh counts when returning from a manage screen
-    }
-
-    private void confirmSeed() {
+    private void confirmLogout() {
         new AlertDialog.Builder(this)
-            .setTitle("Seed Firebase Data")
-            .setMessage("This will upload all default cities, hotels, attractions, activities, and FAQs. Existing data will be skipped if collections are non-empty.")
-            .setPositiveButton("Seed Now", (d, w) -> runSeeder())
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to logout from the admin panel?")
+            .setPositiveButton("Logout", (d, w) -> performLogout())
             .setNegativeButton("Cancel", null)
             .show();
     }
 
-    private void runSeeder() {
-        Toast.makeText(this, "Seeding... please wait", Toast.LENGTH_LONG).show();
-        FirebaseDataSeeder.seedAll((success, message) ->
-            runOnUiThread(() -> {
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-                if (success) setupStatCards();
-            })
-        );
+    private void performLogout() {
+        SharedPreferences prefs = getSharedPreferences(
+            AdminLoginActivity.PREFS_NAME, MODE_PRIVATE);
+        prefs.edit().putBoolean(AdminLoginActivity.KEY_LOGGED_IN, false).apply();
+        startActivity(new Intent(this, HomeActivity.class)
+            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 
     @Override
@@ -130,8 +122,7 @@ public class AdminDashboardActivity extends AppCompatActivity
         else if (id == R.id.nav_attractions) startActivity(new Intent(this, AdminManageAttractionsActivity.class));
         else if (id == R.id.nav_activities)  startActivity(new Intent(this, AdminManageActivitiesActivity.class));
         else if (id == R.id.nav_faqs)        startActivity(new Intent(this, AdminManageFaqsActivity.class));
-        else if (id == R.id.nav_seed)        confirmSeed();
-        else if (id == R.id.nav_open_app)  { startActivity(new Intent(this, Cites.class)); finish(); }
+        else if (id == R.id.nav_logout)      confirmLogout();
         return true;
     }
 
@@ -140,7 +131,8 @@ public class AdminDashboardActivity extends AppCompatActivity
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            // Back from dashboard goes to admin login, not app
+            confirmLogout();
         }
     }
 }

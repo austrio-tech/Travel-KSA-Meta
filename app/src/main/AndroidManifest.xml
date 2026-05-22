@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.travelaks">
-    <!-- الصلاحيات -->
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,102 +14,56 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelAks">
-        <activity
-            android:name=".activity_activitiess_riyadh"
-            android:exported="false" />
-        <activity
-            android:name=".Activities_riyadh"
-            android:exported="false" />
-        <activity
-            android:name=".activity_hotel_riyadh"
-            android:exported="false" />
-        <activity
-            android:name=".Tourist_Attractions_Riyadh"
-            android:exported="false" /> <!-- Splash Screen -->
+
+        <!-- Splash -->
         <activity
             android:name=".Splash"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- الصفحات الرئيسية -->
-        <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Cites"
-            android:exported="false" />
-        <activity
-            android:name=".Forgetpass"
-            android:exported="false" />
-        <activity
-            android:name=".AdminLoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HelpDeskActivity"
-            android:exported="false" /> <!-- صفحات التفاصيل السياحية -->
-        <activity
-            android:name=".RiyadhDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".JeddahDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MakkahDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MadinahDetailsActivity"
-            android:exported="false" /> <!-- صفحات أخرى -->
-        <activity
-            android:name=".EventsDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AttractionsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HotelsActivity"
-            android:exported="false" /> <!-- صفحة الشات مع AI -->
-        <activity
-            android:name=".AiChatActivity"
-            android:exported="false" />
+        </activity>
 
-        <!-- Admin Panel -->
-        <activity
-            android:name=".AdminDashboardActivity"
-            android:exported="false"
-            android:theme="@style/Theme.TravelAks.Admin" />
-        <activity
-            android:name=".AdminManageUsersActivity"
-            android:exported="false"
-            android:theme="@style/Theme.TravelAks.Admin" />
-        <activity
-            android:name=".AdminManageCitiesActivity"
-            android:exported="false"
-            android:theme="@style/Theme.TravelAks.Admin" />
-        <activity
-            android:name=".AdminManageHotelsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.TravelAks.Admin" />
-        <activity
-            android:name=".AdminManageAttractionsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.TravelAks.Admin" />
-        <activity
-            android:name=".AdminManageActivitiesActivity"
-            android:exported="false"
-            android:theme="@style/Theme.TravelAks.Admin" />
-        <activity
-            android:name=".AdminManageFaqsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.TravelAks.Admin" />
+        <!-- Auth screens — adjustPan pans the screen so the focused field is always visible -->
+        <activity android:name=".HomeActivity"      android:exported="false" android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".LoginActivity"     android:exported="false" android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".SignUpActivity"    android:exported="false" android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".Forgetpass"        android:exported="false" android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".AdminLoginActivity" android:exported="false" android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <!-- Main app screens -->
+        <activity android:name=".Cites"             android:exported="false" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".HelpDeskActivity"  android:exported="false" android:windowSoftInputMode="stateHidden" />
+
+        <!-- City details -->
+        <activity android:name=".RiyadhDetailsActivity"  android:exported="false" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".JeddahDetailsActivity"  android:exported="false" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".MakkahDetailsActivity"  android:exported="false" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".MadinahDetailsActivity" android:exported="false" android:windowSoftInputMode="stateHidden" />
+
+        <!-- Content screens -->
+        <activity android:name=".activity_hotel_riyadh"       android:exported="false" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".Tourist_Attractions_Riyadh"  android:exported="false" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".activity_activitiess_riyadh" android:exported="false" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".Activities_riyadh"           android:exported="false" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".EventsDetailsActivity"       android:exported="false" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".AttractionsActivity"         android:exported="false" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".HotelsActivity"              android:exported="false" android:windowSoftInputMode="stateHidden" />
+
+        <!-- AI Chat — adjustResize shrinks the RecyclerView so the input stays above the keyboard -->
+        <activity android:name=".AiChatActivity" android:exported="false" android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <!-- Admin Panel — adjustPan for all form-heavy screens -->
+        <activity android:name=".AdminDashboardActivity"        android:exported="false" android:theme="@style/Theme.TravelAks.Admin" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".AdminManageUsersActivity"      android:exported="false" android:theme="@style/Theme.TravelAks.Admin" android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".AdminManageCitiesActivity"     android:exported="false" android:theme="@style/Theme.TravelAks.Admin" android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".AdminManageHotelsActivity"     android:exported="false" android:theme="@style/Theme.TravelAks.Admin" android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".AdminManageAttractionsActivity" android:exported="false" android:theme="@style/Theme.TravelAks.Admin" android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".AdminManageActivitiesActivity" android:exported="false" android:theme="@style/Theme.TravelAks.Admin" android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".AdminManageFaqsActivity"       android:exported="false" android:theme="@style/Theme.TravelAks.Admin" android:windowSoftInputMode="stateHidden|adjustPan" />
+
     </application>
 
 </manifest>

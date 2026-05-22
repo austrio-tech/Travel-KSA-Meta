@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,7 +56,7 @@ public class AdminManageAttractionsActivity extends AppCompatActivity {
     private void loadData() {
         ProgressBar pb = findViewById(R.id.progress_bar);
         pb.setVisibility(View.VISIBLE);
-        db.collection("attractions").orderBy("city").orderBy("rating", Query.Direction.DESCENDING).get()
+        db.collection("attractions").get()
             .addOnSuccessListener(snap -> {
                 pb.setVisibility(View.GONE);
                 items.clear();

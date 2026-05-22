@@ -23,34 +23,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center"
             android:padding="16dp">
 
             <TextView
                 android:id="@+id/tv_attraction_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#1F2937" />
+                android:textColor="#1E293B" />
 
             <TextView
                 android:id="@+id/tv_attraction_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="#10B981"
+                android:textSize="14sp"
+                android:textColor="#059669"
                 android:layout_marginTop="4dp" />
 
             <TextView
                 android:id="@+id/tv_attraction_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="#374151"
-                android:gravity="center"
-                android:layout_marginTop="12dp"
-                android:lineSpacingExtra="6dp" />
+                android:textSize="14sp"
+                android:textColor="#475569"
+                android:layout_marginTop="10dp"
+                android:lineSpacingExtra="4dp" />
+
+            <Button
+                android:id="@+id/btn_map"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:text="📍  Open in Google Maps"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#1A3C6E"
+                android:layout_marginTop="14dp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

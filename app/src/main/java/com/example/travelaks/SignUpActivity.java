@@ -30,6 +30,13 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        // Session check — skip signup screen if already signed in
+        if (mAuth.getCurrentUser() != null) {
+            startActivity(new Intent(SignUpActivity.this, Cites.class));
+            finishAffinity();
+            return;
+        }
+
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
         btnContinue = findViewById(R.id.btn_continue);

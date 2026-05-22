@@ -12,14 +12,13 @@
         android:orientation="vertical"
         android:background="@color/bg_app">
 
-        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/primary"
-            android:elevation="4dp"
-            app:title="Admin Dashboard"
+            android:elevation="6dp"
+            app:title="Dashboard"
             app:titleTextColor="#FFFFFF"
             app:navigationIcon="@android:drawable/ic_menu_sort_by_size"
             app:navigationIconTint="#FFFFFF" />
@@ -31,113 +30,113 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:orientation="vertical">
 
-                <!-- Greeting -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Welcome, Admin"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tap a card to manage its content"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="20dp" />
-
-                <!-- Row 1: Users + Cities -->
+                <!-- Greeting banner -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="4dp">
+                    android:orientation="vertical"
+                    android:background="@color/primary"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="32dp">
 
-                    <include
-                        android:id="@+id/card_users"
-                        layout="@layout/item_admin_stat_card"
-                        android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:text="Welcome back, Admin"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF" />
 
-                    <include
-                        android:id="@+id/card_cities"
-                        layout="@layout/item_admin_stat_card"
-                        android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:text="Tap any card to manage its content"
+                        android:textSize="13sp"
+                        android:textColor="#99FFFFFF"
+                        android:layout_marginTop="4dp" />
                 </LinearLayout>
 
-                <!-- Row 2: Hotels + Attractions -->
+                <!-- Stat cards grid — 6dp padding around the grid, 6dp margin on each card -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="4dp">
+                    android:orientation="vertical"
+                    android:padding="6dp"
+                    android:layout_marginTop="8dp">
 
-                    <include
-                        android:id="@+id/card_hotels"
-                        layout="@layout/item_admin_stat_card"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:orientation="horizontal">
+                        <include android:id="@+id/card_users"
+                            layout="@layout/item_admin_stat_card"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_margin="6dp" />
+                        <include android:id="@+id/card_cities"
+                            layout="@layout/item_admin_stat_card"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_margin="6dp" />
+                    </LinearLayout>
 
-                    <include
-                        android:id="@+id/card_attractions"
-                        layout="@layout/item_admin_stat_card"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:orientation="horizontal">
+                        <include android:id="@+id/card_hotels"
+                            layout="@layout/item_admin_stat_card"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_margin="6dp" />
+                        <include android:id="@+id/card_attractions"
+                            layout="@layout/item_admin_stat_card"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_margin="6dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <include android:id="@+id/card_activities"
+                            layout="@layout/item_admin_stat_card"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_margin="6dp" />
+                        <include android:id="@+id/card_faqs"
+                            layout="@layout/item_admin_stat_card"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_margin="6dp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
-                <!-- Row 3: Activities + FAQs -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="24dp">
-
-                    <include
-                        android:id="@+id/card_activities"
-                        layout="@layout/item_admin_stat_card"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <include
-                        android:id="@+id/card_faqs"
-                        layout="@layout/item_admin_stat_card"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-                <!-- Seed Button -->
+                <!-- Logout -->
                 <Button
-                    android:id="@+id/btn_seed"
+                    android:id="@+id/btn_logout"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:text="Seed Firebase Data"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="28dp"
+                    android:text="Logout"
                     android:textSize="15sp"
-                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
-                    android:background="@drawable/bg_btn_primary"
-                    android:layout_marginBottom="12dp" />
-
-                <Button
-                    android:id="@+id/btn_open_app"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:text="Open App"
-                    android:textSize="15sp"
                     android:textColor="#FFFFFF"
-                    android:background="@drawable/bg_btn_secondary" />
+                    android:background="@drawable/bg_btn_danger" />
 
             </LinearLayout>
         </ScrollView>
