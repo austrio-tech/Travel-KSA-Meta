@@ -1,235 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/profile">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="70dp"
+        android:background="#666666"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
 
-        <!-- Toolbar / العنوان -->
-
-        <!-- زر Back -->
-
-        <!-- Toolbar معدل - لوجو أكبر على الجانب الأيمن -->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="#666666"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <!-- العنوان في الوسط أو اليسار -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tourist in Riyadh"
-                    android:textSize="22sp"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true" />
-
-                <!-- اللوجو أكبر على الجانب الأيمن -->
-
-
-            </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
-
-        <Button
-            android:id="@+id/btn_back"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="⬅️"
-            android:textSize="18sp"
+            android:text="Tourist Attractions in Riyadh"
+            android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#666666"
-            android:layout_margin="12dp"
-            android:padding="10dp" />
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
 
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="⬅️"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#666666"
+        android:layout_margin="12dp"
+        android:padding="10dp" />
 
-        <!-- 1. At Turaif District -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp">
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_attractions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:clipToPadding="false" />
 
-                <!-- الصورة الكبيرة -->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/turaifddistrict"
-                    android:contentDescription="At Turaif District" />
-
-                <!-- النص تحت الصورة -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="At Turaif District"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="#1F2937" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="UNESCO World Heritage Site • 4.7 ★"
-                        android:textSize="16sp"
-                        android:textColor="#10B981"
-                        android:layout_marginTop="4dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:lineSpacingExtra="6dp"
-                        android:gravity="center"
-                        android:text="A UNESCO World Heritage Site showcasing the remains of the First Saudi State. Located northwest of Riyadh in the historic Diriyah district."
-                        android:textColor="#374151"
-                        android:textSize="16sp" />
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- 2. Al Masmak Fort -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/al_masmak_fort"
-                    android:contentDescription="Al Masmak Fort" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Al Masmak Fort"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="#1F2937" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Historic Fort • 4.6 ★"
-                        android:textSize="16sp"
-                        android:textColor="#10B981"
-                        android:layout_marginTop="4dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:lineSpacingExtra="6dp"
-                        android:gravity="center"
-                        android:text="A historic mud-brick fort dating back to the 19th century, displaying weapons and artifacts related to the unification of the Kingdom."
-                        android:textColor="#374151"
-                        android:textSize="16sp" />
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- كرري نفس الهيكل للباقي (National Museum, Kingdom Center, Riyadh Park, King Abdullah Park) -->
-
-        <!-- مثال سريع للـ National Museum -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/national_museum"
-                    android:contentDescription="National Museum" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="National Museum"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="#1F2937" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Interactive History • 4.6 ★"
-                        android:textSize="16sp"
-                        android:textColor="#10B981"
-                        android:layout_marginTop="4dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:lineSpacingExtra="6dp"
-                        android:gravity="center"
-                        android:text="The Kingdom's history and culture are showcased through modern and interactive exhibits."
-                        android:textColor="#374151"
-                        android:textSize="16sp" />
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- أضيفي باقي الكروت بنفس الطريقة (Kingdom Center, Riyadh Park, King Abdullah Park) -->
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

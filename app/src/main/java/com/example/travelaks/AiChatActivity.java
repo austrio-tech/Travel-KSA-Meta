@@ -8,10 +8,17 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.travelaks.R;
 import com.example.travelaks.data.model.Message;
+
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -25,40 +32,35 @@ import org.json.JSONObject;
 
 public class AiChatActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
     private ChatAdapter chatAdapter;
     private ArrayList<Message> messages;
-    private EditText etMessageInput;
-    private Button btnSend;
-    private TextView tvTitle;
+    private RecyclerView recyclerView;
 
-    // 🔑 OpenAI API Key from BuildConfig
     private static final String OPENAI_API_KEY = BuildConfig.OPENAI_API_KEY;
+    private final OkHttpClient client = new OkHttpClient();
 
-    private OkHttpClient client = new OkHttpClient();
+    private FirebaseFirestore db;
+    private String sessionId;
+    private String currentCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_box_layout);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
 
-        // Log to check if API key is loaded correctly
-        Log.d("AiChatActivity", "API Key: " + OPENAI_API_KEY);
+        db = FirebaseFirestore.getInstance();
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_messages);
+        recyclerView = findViewById(R.id.recycler_messages);
         EditText etMessageInput = findViewById(R.id.edit_message);
         Button btnSend = findViewById(R.id.btn_send);
         Button btnBack = findViewById(R.id.btn_back);
+        TextView tvTitle = findViewById(R.id.tv_title);
 
-        String cityName = getIntent().getStringExtra("city_name");
-        if (cityName != null && !cityName.isEmpty()) {
-            tvTitle.setText("AI " + cityName);
-        } else {
-            tvTitle.setText("AI CHAT");
+        currentCity = getIntent().getStringExtra("city_name");
+        if (tvTitle != null) {
+            tvTitle.setText(currentCity != null ? "AI – " + currentCity : "AI CHAT");
         }
 
         messages = new ArrayList<>();
@@ -66,31 +68,60 @@ public class AiChatActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(chatAdapter);
 
+        if (currentCity != null) {
+            addMessage("Hello! I am your AI assistant. Ask me anything about " + currentCity + " 🌟", false);
+        }
+
+        createChatSession();
+
         btnSend.setOnClickListener(v -> {
             String text = etMessageInput.getText().toString().trim();
-
             if (!text.isEmpty()) {
-                // Add user message
-                messages.add(new Message(text, true));
-                chatAdapter.notifyItemInserted(messages.size() - 1);
-                recyclerView.scrollToPosition(messages.size() - 1);
-
+                addMessage(text, true);
+                saveMessageToFirestore(text, true);
                 etMessageInput.setText("");
-
-                // Send to OpenAI
-                sendMessageToOpenAI(text, cityName);
+                sendMessageToOpenAI(text, currentCity);
             }
         });
 
-        if (cityName != null) {
-            messages.add(new Message("Hello! I am your AI assistant. Ask me anything about " + cityName + " 🌟", false));
-            chatAdapter.notifyItemInserted(0);
-        }
+        if (btnBack != null) btnBack.setOnClickListener(v -> finish());
+    }
+
+    private void createChatSession() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String uid = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : "anonymous";
+
+        Map<String, Object> session = new HashMap<>();
+        session.put("userId", uid);
+        session.put("city", currentCity != null ? currentCity : "");
+        session.put("startedAt", Timestamp.now());
+
+        db.collection("chatSessions").add(session)
+            .addOnSuccessListener(ref -> sessionId = ref.getId())
+            .addOnFailureListener(e -> Log.e("AiChat", "Session creation failed: " + e.getMessage()));
+    }
+
+    private void saveMessageToFirestore(String text, boolean isUser) {
+        if (sessionId == null) return;
+
+        Map<String, Object> msg = new HashMap<>();
+        msg.put("text", text);
+        msg.put("isUser", isUser);
+        msg.put("timestamp", Timestamp.now());
+
+        db.collection("chatSessions").document(sessionId)
+            .collection("messages").add(msg)
+            .addOnFailureListener(e -> Log.e("AiChat", "Save message failed: " + e.getMessage()));
+    }
+
+    private void addMessage(String text, boolean isUser) {
+        messages.add(new Message(text, isUser));
+        chatAdapter.notifyItemInserted(messages.size() - 1);
+        recyclerView.scrollToPosition(messages.size() - 1);
     }
 
     private void sendMessageToOpenAI(String userMessage, String cityName) {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
         JSONObject json = new JSONObject();
         try {
             json.put("model", "gpt-3.5-turbo");
@@ -104,21 +135,19 @@ public class AiChatActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        RequestBody body = RequestBody.create(JSON, json.toString());
-
         Request request = new Request.Builder()
-                .url("https://api.openai.com/v1/chat/completions")
-                .header("Authorization", "Bearer " + OPENAI_API_KEY)
-                .post(body)
-                .build();
+            .url("https://api.openai.com/v1/chat/completions")
+            .header("Authorization", "Bearer " + OPENAI_API_KEY)
+            .post(RequestBody.create(JSON, json.toString()))
+            .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                String error = "❌ Connection error: " + e.getMessage();
                 runOnUiThread(() -> {
-                    messages.add(new Message("❌ Connection error: " + e.getMessage(), false));
-                    chatAdapter.notifyItemInserted(messages.size() - 1);
-                    recyclerView.scrollToPosition(messages.size() - 1);
+                    addMessage(error, false);
+                    saveMessageToFirestore(error, false);
                 });
             }
 
@@ -127,11 +156,8 @@ public class AiChatActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     try {
                         String responseData = response.body().string();
-                        Log.d("AiChatActivity", "Response: " + responseData);
-
                         JSONObject jsonObject = new JSONObject(responseData);
                         JSONArray choices = jsonObject.optJSONArray("choices");
-
                         String aiReply = "⚠️ No reply from AI";
                         if (choices != null && choices.length() > 0) {
                             JSONObject choice = choices.getJSONObject(0);
@@ -140,26 +166,23 @@ public class AiChatActivity extends AppCompatActivity {
                                 aiReply = messageObj.optString("content", aiReply);
                             }
                         }
-
                         String finalReply = aiReply;
                         runOnUiThread(() -> {
-                            messages.add(new Message(finalReply, false));
-                            chatAdapter.notifyItemInserted(messages.size() - 1);
-                            recyclerView.scrollToPosition(messages.size() - 1);
+                            addMessage(finalReply, false);
+                            saveMessageToFirestore(finalReply, false);
                         });
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        String error = "⚠️ Error parsing AI response";
                         runOnUiThread(() -> {
-                            messages.add(new Message("⚠️ Error parsing AI response", false));
-                            chatAdapter.notifyItemInserted(messages.size() - 1);
-                            recyclerView.scrollToPosition(messages.size() - 1);
+                            addMessage(error, false);
+                            saveMessageToFirestore(error, false);
                         });
                     }
                 } else {
+                    String error = "❌ Error from OpenAI: " + response.code();
                     runOnUiThread(() -> {
-                        messages.add(new Message("❌ Error from OpenAI: " + response.code(), false));
-                        chatAdapter.notifyItemInserted(messages.size() - 1);
-                        recyclerView.scrollToPosition(messages.size() - 1);
+                        addMessage(error, false);
+                        saveMessageToFirestore(error, false);
                     });
                 }
             }

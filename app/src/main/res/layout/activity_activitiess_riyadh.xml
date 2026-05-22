@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/profile">
 
-    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -15,28 +13,15 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <!-- Title -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Activities in Riyadh"
-                android:textSize="22sp"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true" />
-
-            <!-- Logo -->
-
-
-        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activities in Riyadh"
+            android:textSize="22sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- Back Button -->
     <Button
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
@@ -48,377 +33,18 @@
         android:layout_margin="12dp"
         android:padding="10dp" />
 
-    <ScrollView
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_activities"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:clipToPadding="false" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- 1. Prison Island Riyadh -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="220dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/prison_island"
-                        android:contentDescription="Prison Island Riyadh" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Prison Island Riyadh"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="#1F2937"
-                        android:gravity="center"
-                        android:layout_marginTop="16dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="4.8 ★ Interactive Adventure"
-                        android:textSize="18sp"
-                        android:textColor="#10B981"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Open 4 PM – 12 AM"
-                        android:textSize="16sp"
-                        android:textColor="#374151"
-                        android:gravity="center"
-                        android:layout_marginTop="6dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="An indoor adventure center with group challenges in puzzle-filled dungeons."
-                        android:textSize="16sp"
-                        android:textColor="#374151"
-                        android:gravity="center"
-                        android:layout_marginTop="12dp"
-                        android:lineSpacingExtra="6dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="📍 Park Avenue Mall – Cordoba District"
-                        android:textSize="16sp"
-                        android:textColor="#1E40AF"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 2. Boulevard World -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="220dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/boulevard_world"
-                        android:contentDescription="Boulevard World" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Boulevard World"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="#1F2937"
-                        android:gravity="center"
-                        android:layout_marginTop="16dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="4.7 ★ Entertainment Hub"
-                        android:textSize="18sp"
-                        android:textColor="#10B981"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Open 4 PM – 12 AM"
-                        android:textSize="16sp"
-                        android:textColor="#374151"
-                        android:gravity="center"
-                        android:layout_marginTop="6dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="A huge entertainment area with games, restaurants, and cultural kiosks."
-                        android:textSize="16sp"
-                        android:textColor="#374151"
-                        android:gravity="center"
-                        android:layout_marginTop="12dp"
-                        android:lineSpacingExtra="6dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="📍 Al Aqiq District – North Riyadh"
-                        android:textSize="16sp"
-                        android:textColor="#1E40AF"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <!-- 3. Laser Tag Arena -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="220dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/laser"
-                        android:contentDescription="Laser Tag Arena" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Laser Tag Arena"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="#1F2937"
-                        android:gravity="center"
-                        android:layout_marginTop="16dp" />
-
-                    <!-- Rating -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="4.4 ★ Multiplayer Action"
-                        android:textSize="18sp"
-                        android:textColor="#10B981"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp" />
-
-                    <!-- Time -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Open 3 PM – 11 PM"
-                        android:textSize="16sp"
-                        android:textColor="#374151"
-                        android:gravity="center"
-                        android:layout_marginTop="6dp" />
-
-                    <!-- Description -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="An indoor multiplayer arena with safe laser weapons, obstacles, and special lighting."
-                        android:textSize="16sp"
-                        android:textColor="#374151"
-                        android:gravity="center"
-                        android:layout_marginTop="12dp"
-                        android:lineSpacingExtra="6dp" />
-
-                    <!-- Location -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="📍 Al Olaya District, Riyadh"
-                        android:textSize="16sp"
-                        android:textColor="#1E40AF"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 4. Riyadh Zoo -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="220dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/riyadh_zoo"
-                        android:contentDescription="Riyadh Zoo" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Riyadh Zoo"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="#1F2937"
-                        android:gravity="center"
-                        android:layout_marginTop="16dp" />
-
-                    <!-- Rating -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="4.2 ★ Family Attraction"
-                        android:textSize="18sp"
-                        android:textColor="#10B981"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp" />
-
-                    <!-- Time -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Open 8 AM – 4:30 PM"
-                        android:textSize="16sp"
-                        android:textColor="#374151"
-                        android:gravity="center"
-                        android:layout_marginTop="6dp" />
-
-                    <!-- Description -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="See over 1500 animal species with an internal train ride."
-                        android:textSize="16sp"
-                        android:textColor="#374151"
-                        android:gravity="center"
-                        android:layout_marginTop="12dp"
-                        android:lineSpacingExtra="6dp" />
-
-                    <!-- Location -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="📍 Al Malaz District, Riyadh"
-                        android:textSize="16sp"
-                        android:textColor="#1E40AF"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 5. Snow City -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="220dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/snow_city"
-                        android:contentDescription="Snow City" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Snow City"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="#1F2937"
-                        android:gravity="center"
-                        android:layout_marginTop="16dp" />
-
-                    <!-- Rating -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="4.0 ★ Ice Adventure"
-                        android:textSize="18sp"
-                        android:textColor="#10B981"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp" />
-
-                    <!-- Time -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Open 10 AM – 12 AM"
-                        android:textSize="16sp"
-                        android:textColor="#374151"
-                        android:gravity="center"
-                        android:layout_marginTop="6dp" />
-
-                    <!-- Description -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Experience ice skating and skiing in the heart of Riyadh, suitable for families and children."
-                        android:textSize="16sp"
-                        android:textColor="#374151"
-                        android:gravity="center"
-                        android:layout_marginTop="12dp"
-                        android:lineSpacingExtra="6dp" />
-
-                    <!-- Location -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="📍 Al Othaim Mall – Al Rabwah"
-                        android:textSize="16sp"
-                        android:textColor="#1E40AF"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>

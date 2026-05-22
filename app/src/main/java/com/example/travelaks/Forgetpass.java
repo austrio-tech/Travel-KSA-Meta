@@ -8,65 +8,52 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.regex.Pattern;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Forgetpass extends AppCompatActivity {
 
-    private EditText etNewPassword, etConfirmPassword;
+    private EditText etEmail, etConfirmPassword;
     private Button btnReset, btnBack;
-
-    // شرط قوي لكلمة المرور: 8 أحرف + حرف كبير + حرف صغير + رقم + رمز
-    private static final String PASSWORD_PATTERN =
-            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgetpass);
 
-        etNewPassword = findViewById(R.id.et_new_password);
+        mAuth = FirebaseAuth.getInstance();
+
+        etEmail = findViewById(R.id.et_new_password);
         etConfirmPassword = findViewById(R.id.et_confirm_password);
         btnReset = findViewById(R.id.btn_reset);
         btnBack = findViewById(R.id.btn_back);
 
+        etEmail.setHint("Enter your email address");
+        etEmail.setInputType(android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        etConfirmPassword.setVisibility(View.GONE);
+
         btnReset.setOnClickListener(v -> {
-            String newPass = etNewPassword.getText().toString().trim();
-            String confirmPass = etConfirmPassword.getText().toString().trim();
+            String email = etEmail.getText().toString().trim();
 
-            if (newPass.isEmpty()) {
-                etNewPassword.setError("Please enter new password");
+            if (email.isEmpty()) {
+                etEmail.setError("Please enter your email");
                 return;
             }
 
-            if (confirmPass.isEmpty()) {
-                etConfirmPassword.setError("Please confirm your password");
-                return;
-            }
-
-            if (!newPass.equals(confirmPass)) {
-                etConfirmPassword.setError("Passwords do not match");
-                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // التحقق من قوة كلمة المرور
-            if (!isStrongPassword(newPass)) {
-                etNewPassword.setError("Password must be at least 8 characters and contain:\n• Uppercase letter\n• Lowercase letter\n• Number\n• Special character (@#$%^&+=!)");
-                Toast.makeText(this, "Weak password", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            // إذا نجح كل شيء
-            Toast.makeText(this, "Password has been reset successfully!", Toast.LENGTH_LONG).show();
-
-            finish(); // يرجع لصفحة اللوجن
+            btnReset.setEnabled(false);
+            mAuth.sendPasswordResetEmail(email)
+                .addOnSuccessListener(unused -> {
+                    Toast.makeText(this,
+                        "Reset link sent to " + email + ". Check your inbox.",
+                        Toast.LENGTH_LONG).show();
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    btnReset.setEnabled(true);
+                    Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                });
         });
 
         btnBack.setOnClickListener(v -> finish());
-    }
-
-    // دالة التحقق من قوة كلمة المرور
-    private boolean isStrongPassword(String password) {
-        return Pattern.compile(PASSWORD_PATTERN).matcher(password).matches();
     }
 }
