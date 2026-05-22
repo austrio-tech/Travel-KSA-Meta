@@ -78,7 +78,7 @@ public class AdminDashboardActivity extends AppCompatActivity
             String collection = (String) data[3];
             Class<?> target   = (Class<?>) data[4];
 
-            cardView.setBackgroundColor(android.graphics.Color.parseColor(color));
+            ((CardView) cardView).setCardBackgroundColor(android.graphics.Color.parseColor(color));
             ((TextView) cardView.findViewById(R.id.tv_card_icon)).setText(icon);
             ((TextView) cardView.findViewById(R.id.tv_card_label)).setText(label);
 

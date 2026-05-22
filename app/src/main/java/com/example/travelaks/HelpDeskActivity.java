@@ -2,10 +2,24 @@ package com.example.travelaks;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HelpDeskActivity extends AppCompatActivity {
 
@@ -14,34 +28,84 @@ public class HelpDeskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_desk);
 
-        // ربط كل الأسئلة والإجابات بنفس الطريقة
-        setupExpandable(R.id.layout1, R.id.ans1);
-        setupExpandable(R.id.layout2, R.id.ans2);
-        setupExpandable(R.id.layout3, R.id.ans3);
-        setupExpandable(R.id.layout4, R.id.ans4);
-        setupExpandable(R.id.layout5, R.id.ans5);
-        setupExpandable(R.id.layout6, R.id.ans6);
+        RecyclerView recyclerView = findViewById(R.id.recycler_faqs);
+        ProgressBar progressBar = findViewById(R.id.progress_bar);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // زر الرجوع (Back) يروح لصفحة Home
+        List<FaqItem> faqs = new ArrayList<>();
+        FaqAdapter adapter = new FaqAdapter(faqs);
+        recyclerView.setAdapter(adapter);
+
+        progressBar.setVisibility(View.VISIBLE);
+        FirebaseFirestore.getInstance()
+            .collection("faqs")
+            .whereEqualTo("isVisible", true)
+            .orderBy("order", Query.Direction.ASCENDING)
+            .get()
+            .addOnSuccessListener(snap -> {
+                progressBar.setVisibility(View.GONE);
+                for (QueryDocumentSnapshot doc : snap) {
+                    String q = doc.getString("question");
+                    String a = doc.getString("answer");
+                    if (q != null && a != null) faqs.add(new FaqItem(q, a));
+                }
+                adapter.notifyDataSetChanged();
+            })
+            .addOnFailureListener(e -> {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(this, "Could not load FAQs: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            });
+
         findViewById(R.id.btn_back).setOnClickListener(v -> {
-            Intent intent = new Intent(HelpDeskActivity.this, HomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-            finish(); // تقفل صفحة Help Desk
+            startActivity(new Intent(this, HomeActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+            finish();
         });
     }
 
-    // دالة واحدة تشتغل على أي سؤال + جواب
-    private void setupExpandable(int layoutId, int answerId) {
-        LinearLayout layout = findViewById(layoutId);
-        TextView answer = findViewById(answerId);
+    // ── Data class ────────────────────────────────────────────
+    static class FaqItem {
+        final String question, answer;
+        boolean expanded = false;
+        FaqItem(String q, String a) { question = q; answer = a; }
+    }
 
-        layout.setOnClickListener(v -> {
-            if (answer.getVisibility() == View.GONE) {
-                answer.setVisibility(View.VISIBLE);
-            } else {
-                answer.setVisibility(View.GONE);
+    // ── Adapter ───────────────────────────────────────────────
+    static class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.VH> {
+        private final List<FaqItem> items;
+        FaqAdapter(List<FaqItem> items) { this.items = items; }
+
+        @NonNull @Override
+        public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_faq, parent, false);
+            return new VH(v);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull VH h, int pos) {
+            FaqItem item = items.get(pos);
+            h.tvQuestion.setText(item.question);
+            h.tvAnswer.setText(item.answer);
+            h.tvAnswer.setVisibility(item.expanded ? View.VISIBLE : View.GONE);
+            h.tvArrow.setText(item.expanded ? "▲" : "▼");
+
+            h.itemView.setOnClickListener(v -> {
+                item.expanded = !item.expanded;
+                notifyItemChanged(pos);
+            });
+        }
+
+        @Override public int getItemCount() { return items.size(); }
+
+        static class VH extends RecyclerView.ViewHolder {
+            TextView tvQuestion, tvAnswer, tvArrow;
+            VH(View v) {
+                super(v);
+                tvQuestion = v.findViewById(R.id.tv_question);
+                tvAnswer   = v.findViewById(R.id.tv_answer);
+                tvArrow    = v.findViewById(R.id.tv_arrow);
             }
-        });
+        }
     }
 }

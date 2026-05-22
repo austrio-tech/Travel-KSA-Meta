@@ -23,14 +23,15 @@
 
         <!-- Brief Description -->
         <TextView
+            android:id="@+id/tv_description"
             android:layout_width="match_parent"
-            android:layout_height="165dp"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="#FFFFFF"
             android:elevation="2dp"
             android:lineSpacingExtra="6dp"
             android:padding="12dp"
-            android:text="Jeddah is the gateway to Mecca and Medina, a vibrant coastal city on the Red Sea. It is known for its historic landmarks. With warm weather year-round and a mix of tradition and modernity, Jeddah is a key cultural and commercial hub in Saudi Arabia."
+            android:text="Loading..."
             android:textColor="#2C2C2C"
             android:textSize="15sp" />
 

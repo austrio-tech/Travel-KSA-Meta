@@ -14,9 +14,10 @@
         android:paddingEnd="16dp">
 
         <TextView
+            android:id="@+id/tv_toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Activities in Riyadh"
+            android:text="Activities"
             android:textSize="22sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
