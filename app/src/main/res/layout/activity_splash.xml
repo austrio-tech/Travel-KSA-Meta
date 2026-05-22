@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- خلفية السبلاش -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/splashh"
+        android:scaleType="centerCrop" />
+
+    <!-- طبقة داكنة شفافة -->
+
+    <!-- اللوجو في الأعلى -->
+
+    <!-- النص في منتصف الشاشة -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         />
+
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:contentDescription="logo"
+        android:src="@drawable/logo" />
+
+    <!-- ProgressBar في الأسفل -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="144dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="AI Powered Travel Mate in KSA"
+        android:textColor="#013220"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <ProgressBar
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="100dp"
+        android:indeterminateTint="#DAA520" />
+
+</FrameLayout>

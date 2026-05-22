@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="button_reset">#FFCC80</color>
+    <color name="button_back">#666666</color>
+    <color name="colorPrimary">#FFCC80</color>
+
+    <style name="AttractionCardStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">8dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+</resources>

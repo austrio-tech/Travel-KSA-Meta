@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/profile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Discover Jeddah"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:padding="20dp"
+            android:background="#666666" />
+
+        <!-- Brief Description -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="165dp"
+            android:layout_margin="10dp"
+            android:background="#FFFFFF"
+            android:elevation="2dp"
+            android:lineSpacingExtra="6dp"
+            android:padding="12dp"
+            android:text="Jeddah is the gateway to Mecca and Medina, a vibrant coastal city on the Red Sea. It is known for its historic landmarks. With warm weather year-round and a mix of tradition and modernity, Jeddah is a key cultural and commercial hub in Saudi Arabia."
+            android:textColor="#2C2C2C"
+            android:textSize="15sp" />
+
+        <!-- Three Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <!-- Attractions Button -->
+            <LinearLayout
+                android:id="@+id/btnAttractions"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="#FFCC80"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/place"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Attractions"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#1A1A1A"
+                    android:layout_marginStart="12dp" />
+            </LinearLayout>
+
+            <!-- Hotels Button -->
+            <LinearLayout
+                android:id="@+id/btnHotels"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="#FFCC80"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/hotel"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hotels"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#1A1A1A"
+                    android:layout_marginStart="12dp" />
+            </LinearLayout>
+
+            <!-- Events Button -->
+            <LinearLayout
+                android:id="@+id/btnEvents"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="#FFCC80"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/event"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Activities"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#1A1A1A"
+                    android:layout_marginStart="12dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Chat Button -->
+        <Button
+            android:id="@+id/btn_ask_ai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="#666666"
+            android:padding="10dp"
+            android:text="🤖 Ask AI about Jeddah"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <!-- Back Button -->
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="#666666"
+            android:text="⬅️ "
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:padding="10dp" />
+
+    </LinearLayout>
+</ScrollView>
