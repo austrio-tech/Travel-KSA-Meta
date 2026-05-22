@@ -1,108 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/profile">
 
-    <!-- Welcome Back -->
     <TextView
         android:id="@+id/tv_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
-        android:text="@string/welcome_back"
-        android:textSize="36sp"
+        android:layout_marginTop="180dp"
+        android:text="Welcome Back"
+        android:textSize="34sp"
         android:textStyle="bold"
-        android:textColor="#2C2C2C"
-        android:letterSpacing="0.02" />
+        android:textColor="#FFFFFF"
+        android:shadowColor="#66000000"
+        android:shadowRadius="6"
+        android:shadowDx="0"
+        android:shadowDy="2" />
 
-    <!-- Email -->
     <EditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="54dp"
         android:layout_below="@id/tv_welcome"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:background="@android:color/white"
-        android:textColor="#000000"
-        android:textColorHint="#666666"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:hint="@string/email"
-        android:textStyle="bold"
+        android:layout_marginTop="44dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/bg_input_field"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:hint="Email address"
+        android:textColorHint="#94A3B8"
+        android:textColor="#1E293B"
+        android:textSize="16sp"
         android:inputType="textEmailAddress"
-        android:autofillHints="emailAddress"
-        android:elevation="5dp" />
+        android:autofillHints="emailAddress" />
 
-    <!-- Password -->
     <EditText
         android:id="@+id/et_password"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="54dp"
         android:layout_below="@id/et_email"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:background="@android:color/white"
-        android:textColor="#000000"
-        android:textColorHint="#666666"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/bg_input_field"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
         android:hint="Password"
-        android:textStyle="bold"
+        android:textColorHint="#94A3B8"
+        android:textColor="#1E293B"
+        android:textSize="16sp"
         android:inputType="textPassword"
-        android:autofillHints="password"
-        android:elevation="5dp" />
+        android:autofillHints="password" />
 
-
-    <!-- Forgot Password -->
     <TextView
         android:id="@+id/tv_forgot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/et_password"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="28dp"
         android:text="Forgot Password?"
         android:textStyle="bold"
-        android:textColor="#3D2B1F"
-        android:textSize="25sp" />
+        android:textColor="#FFFFFF"
+        android:textSize="15sp" />
 
-    <!-- Continue Button -->
     <Button
         android:id="@+id/btn_continue"
         android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_height="54dp"
         android:layout_below="@id/tv_forgot"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
         android:text="CONTINUE"
         android:textStyle="bold"
-        android:textSize="20sp"
-        android:textColor="#1A1A1A"
-        android:backgroundTint="#FFCC80"
-        android:elevation="0dp" />
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/bg_btn_primary"
+        android:elevation="4dp" />
 
-    <!-- Back Button -->
     <Button
         android:id="@+id/btn_back"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="54dp"
         android:layout_below="@id/btn_continue"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
         android:text="Back"
         android:textStyle="bold"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textColor="#FFFFFF"
-        android:backgroundTint="#666666"
-        android:elevation="0dp" />
-
+        android:background="@drawable/bg_btn_secondary"
+        android:elevation="4dp" />
 </RelativeLayout>

@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Legacy -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="button_reset">#FFCC80</color>
-    <color name="button_back">#666666</color>
-    <color name="colorPrimary">#FFCC80</color>
 
+    <!-- Brand -->
+    <color name="primary">#1A3C6E</color>
+    <color name="primary_dark">#0D2647</color>
+    <color name="primary_light">#2E5490</color>
+    <color name="accent">#2563EB</color>
+
+    <!-- Semantic -->
+    <color name="success">#059669</color>
+    <color name="warning">#D97706</color>
+    <color name="danger">#DC2626</color>
+
+    <!-- Backgrounds -->
+    <color name="bg_app">#F0F4F8</color>
+    <color name="surface">#FFFFFF</color>
+
+    <!-- Text -->
+    <color name="text_primary">#1E293B</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="text_hint">#94A3B8</color>
+    <color name="text_on_primary">#FFFFFF</color>
+
+    <!-- Border -->
+    <color name="border">#CBD5E1</color>
+
+    <!-- Dashboard stat card colors -->
+    <color name="stat_users">#2563EB</color>
+    <color name="stat_cities">#059669</color>
+    <color name="stat_hotels">#D97706</color>
+    <color name="stat_attractions">#7C3AED</color>
+    <color name="stat_activities">#DC2626</color>
+    <color name="stat_faqs">#0891B2</color>
+
+    <!-- Style block (legacy, kept for compatibility) -->
     <style name="AttractionCardStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

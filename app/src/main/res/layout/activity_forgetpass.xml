@@ -1,92 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/profile">
 
-    <!-- Title: Reset Password -->
     <TextView
-        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="180dp"
         android:text="Reset Password"
-        android:textSize="32sp"
+        android:textSize="34sp"
         android:textStyle="bold"
-        android:textColor="#2C2C2C"
-        android:letterSpacing="0.02" />
+        android:textColor="#FFFFFF"
+        android:shadowColor="#66000000"
+        android:shadowRadius="6"
+        android:shadowDx="0"
+        android:shadowDy="2" />
 
-    <!-- New Password -->
+    <TextView
+        android:id="@+id/tv_instruction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="256dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:text="Enter your email and we'll send you a reset link."
+        android:textColor="#DDFFFFFF"
+        android:textSize="15sp"
+        android:gravity="center" />
+
     <EditText
         android:id="@+id/et_new_password"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
-        android:layout_below="@id/tv_title"
-        android:layout_marginTop="55dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:background="#FFFFFF"
-        android:hint="New Password"
-        android:inputType="textPassword"
-        android:padding="20dp"
-        android:textColor="#000000"
-        android:textColorHint="#666666"
-        android:textSize="18sp"
-        android:elevation="4dp" />
+        android:layout_height="54dp"
+        android:layout_below="@id/tv_instruction"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/bg_input_field"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:hint="Email address"
+        android:textColorHint="#94A3B8"
+        android:textColor="#1E293B"
+        android:textSize="16sp"
+        android:inputType="textEmailAddress" />
 
-    <!-- Confirm New Password -->
     <EditText
         android:id="@+id/et_confirm_password"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="54dp"
         android:layout_below="@id/et_new_password"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:background="#FFFFFF"
-        android:hint="Confirm New Password"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/bg_input_field"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:hint="Confirm new password"
+        android:textColorHint="#94A3B8"
+        android:textColor="#1E293B"
+        android:textSize="16sp"
         android:inputType="textPassword"
-        android:padding="20dp"
-        android:textColor="#000000"
-        android:textColorHint="#666666"
-        android:textSize="18sp"
-        android:elevation="4dp" />
+        android:visibility="gone" />
 
-    <!-- Reset Password Button -->
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btn_reset"
         android:layout_width="match_parent"
-        android:layout_height="62dp"
-        android:layout_below="@id/et_confirm_password"
-        android:layout_marginTop="45dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        app:backgroundTint="#FFCC80"
-        android:text="Reset Password"
-        android:textSize="20sp"
+        android:layout_height="54dp"
+        android:layout_below="@id/et_new_password"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:text="SEND RESET LINK"
         android:textStyle="bold"
-        android:textColor="#1A1A1A"
-        app:cornerRadius="12dp"
-        android:elevation="6dp" />
-
-    <!-- Back Button -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:layout_below="@id/btn_reset"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        app:backgroundTint="#666666"
-        android:text="Back"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:textSize="16sp"
         android:textColor="#FFFFFF"
-        app:cornerRadius="12dp"
-        android:paddingStart="45dp"
-        android:paddingEnd="45dp"
+        android:background="@drawable/bg_btn_primary"
         android:elevation="4dp" />
 
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_below="@id/btn_reset"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:text="Back"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/bg_btn_secondary"
+        android:elevation="4dp" />
 </RelativeLayout>

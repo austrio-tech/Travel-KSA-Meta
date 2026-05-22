@@ -1,76 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/profile">
 
-    <!-- Title -->
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="180dp"
         android:text="Create Account"
         android:textSize="34sp"
         android:textStyle="bold"
-        android:textColor="#2C2C2C" />
+        android:textColor="#FFFFFF"
+        android:shadowColor="#66000000"
+        android:shadowRadius="6"
+        android:shadowDx="0"
+        android:shadowDy="2" />
 
-    <!-- Email -->
     <EditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="54dp"
         android:layout_below="@id/tv_title"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:background="#FFFFFF"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:padding="20dp"
-        android:textColor="#000000"
-        android:textColorHint="#666666"
-        android:textSize="18sp"
-        android:elevation="4dp" />
+        android:layout_marginTop="44dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/bg_input_field"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:hint="Email address"
+        android:textColorHint="#94A3B8"
+        android:textColor="#1E293B"
+        android:textSize="16sp"
+        android:inputType="textEmailAddress" />
 
-    <!-- Password -->
     <EditText
         android:id="@+id/et_password"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="54dp"
         android:layout_below="@id/et_email"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:background="#FFFFFF"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:padding="20dp"
-        android:textColor="#000000"
-        android:textColorHint="#666666"
-        android:textSize="18sp"
-        android:elevation="4dp" />
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/bg_input_field"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:hint="Password (min. 6 characters)"
+        android:textColorHint="#94A3B8"
+        android:textColor="#1E293B"
+        android:textSize="16sp"
+        android:inputType="textPassword" />
 
-    <!-- Continue Button - اللون المطلوب #FFCC80 -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_continue"
         android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_height="54dp"
         android:layout_below="@id/et_password"
-        android:layout_marginTop="45dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        app:backgroundTint="#FFCC80"
-        android:text="CONTINUE"
-        android:textSize="20sp"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:text="CREATE ACCOUNT"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="#1A1A1A"
-        app:cornerRadius="12dp"
-        android:elevation="6dp" />
-
-    <!-- Back Button -->
-
-
+        android:textColor="#FFFFFF"
+        android:backgroundTint="@color/primary"
+        android:elevation="4dp" />
 </RelativeLayout>

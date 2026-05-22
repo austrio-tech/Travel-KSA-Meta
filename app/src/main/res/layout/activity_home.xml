@@ -4,117 +4,101 @@
     android:layout_height="match_parent"
     android:background="@drawable/profile">
 
-
-
-
     <TextView
-        android:id="@+id/tv_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome Back!"
-        android:textSize="38sp"
+        android:textSize="36sp"
         android:textStyle="bold"
-        android:textColor="#2C2C2C"
+        android:textColor="#FFFFFF"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
-        android:shadowRadius="10" />
+        android:layout_marginTop="180dp"
+        android:shadowColor="#66000000"
+        android:shadowRadius="8"
+        android:shadowDx="0"
+        android:shadowDy="2" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerInParent="true"
-        android:layout_marginTop="200dp"
-        android:padding="60dp">
+        android:padding="28dp"
+        android:layout_marginTop="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_marginBottom="20dp">
-
+            android:layout_marginBottom="16dp">
 
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_height="56dp"
                 android:layout_weight="1"
                 android:text="Login"
                 android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="#254117"
-                android:backgroundTint="#ECE5B6"
-                android:layout_marginEnd="10dp"
-                android:elevation="8dp"
-                style="@style/Widget.MaterialComponents.Button" />
-
+                android:textSize="17sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bg_btn_primary"
+                android:layout_marginEnd="8dp"
+                android:elevation="4dp" />
 
             <Button
                 android:id="@+id/btn_signup"
                 android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_height="56dp"
                 android:layout_weight="1"
                 android:text="Sign Up"
                 android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="#254117"
-                android:backgroundTint="#ECE5B6"
-                android:layout_marginStart="10dp"
-                android:elevation="8dp"
-                style="@style/Widget.MaterialComponents.Button" />
-
+                android:textSize="17sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bg_btn_primary"
+                android:layout_marginStart="8dp"
+                android:elevation="4dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_helpdesk"
                 android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_height="56dp"
                 android:layout_weight="1"
                 android:text="FAQ"
                 android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="#254117"
-                android:backgroundTint="#ECE5B6"
-                android:layout_marginEnd="10dp"
-                android:elevation="8dp"
-                style="@style/Widget.MaterialComponents.Button" />
-
+                android:textSize="17sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bg_btn_secondary"
+                android:layout_marginEnd="8dp"
+                android:elevation="4dp" />
 
             <Button
                 android:id="@+id/btn_admin"
                 android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_height="56dp"
                 android:layout_weight="1"
-                android:text="Admin Login"
+                android:text="Admin"
                 android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="#254117"
-                android:backgroundTint="#ECE5B6"
-                android:layout_marginStart="10dp"
-                android:elevation="8dp"
-                style="@style/Widget.MaterialComponents.Button" />
-
+                android:textSize="17sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bg_btn_secondary"
+                android:layout_marginStart="8dp"
+                android:elevation="4dp" />
         </LinearLayout>
-
     </LinearLayout>
 
-    <!-- Footer -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="© 2026 Travel Aks"
-        android:textColor="#88FFFFFF"
+        android:text="© 2026 Travel SKA"
+        android:textColor="#AAFFFFFF"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:textSize="14sp" />
-
+        android:layout_marginBottom="24dp"
+        android:textSize="13sp" />
 </RelativeLayout>

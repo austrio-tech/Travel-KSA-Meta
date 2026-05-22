@@ -80,6 +80,36 @@
         <activity
             android:name=".AiChatActivity"
             android:exported="false" />
+
+        <!-- Admin Panel -->
+        <activity
+            android:name=".AdminDashboardActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TravelAks.Admin" />
+        <activity
+            android:name=".AdminManageUsersActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TravelAks.Admin" />
+        <activity
+            android:name=".AdminManageCitiesActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TravelAks.Admin" />
+        <activity
+            android:name=".AdminManageHotelsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TravelAks.Admin" />
+        <activity
+            android:name=".AdminManageAttractionsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TravelAks.Admin" />
+        <activity
+            android:name=".AdminManageActivitiesActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TravelAks.Admin" />
+        <activity
+            android:name=".AdminManageFaqsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TravelAks.Admin" />
     </application>
 
 </manifest>

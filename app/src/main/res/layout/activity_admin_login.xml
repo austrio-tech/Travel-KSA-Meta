@@ -4,59 +4,116 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="32dp"
-    android:background="@drawable/profile">
+    android:background="@color/primary">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Admin Login"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="32dp" />
-
-    <EditText
-        android:id="@+id/et_admin_email"
+    <!-- Header -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Username"
-        android:inputType="text"
-        android:padding="14dp"
-        android:background="@android:color/white"
-        android:layout_marginBottom="16dp"
-        android:textSize="16sp" />
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
 
-    <EditText
-        android:id="@+id/et_admin_password"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔐"
+            android:textSize="48sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin Portal"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Travel SKA Management"
+            android:textSize="15sp"
+            android:textColor="#B0C4DE"
+            android:layout_marginTop="6dp" />
+    </LinearLayout>
+
+    <!-- Card -->
+    <androidx.cardview.widget.CardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:padding="14dp"
-        android:background="@android:color/white"
-        android:layout_marginBottom="24dp"
-        android:textSize="16sp" />
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="0dp"
+        android:layout_margin="0dp">
 
-    <Button
-        android:id="@+id/btn_admin_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login as Admin"
-        android:textSize="16sp"
-        android:backgroundTint="#1E40AF"
-        android:textColor="#FFFFFF"
-        android:padding="14dp"
-        android:layout_marginBottom="12dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="32dp"
+            android:background="@color/bg_app">
 
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="⬅ Back"
-        android:textSize="15sp"
-        android:backgroundTint="#666666"
-        android:textColor="#FFFFFF" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign In"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="24dp" />
 
+            <EditText
+                android:id="@+id/et_admin_email"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="@drawable/bg_input_field"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:hint="Username"
+                android:textColorHint="@color/text_hint"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:inputType="text"
+                android:layout_marginBottom="12dp" />
+
+            <EditText
+                android:id="@+id/et_admin_password"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="@drawable/bg_input_field"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:hint="Password"
+                android:textColorHint="@color/text_hint"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:inputType="textPassword"
+                android:layout_marginBottom="28dp" />
+
+            <Button
+                android:id="@+id/btn_admin_login"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="SIGN IN"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bg_btn_primary"
+                android:elevation="2dp"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="Back"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bg_btn_secondary" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>
