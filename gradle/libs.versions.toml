@@ -10,6 +10,7 @@ constraintlayout = "2.2.1"
 kotlin = "2.0.21"
 firebaseBom = "33.7.0"
 googleServices = "4.4.2"
+markwon = "4.6.2"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }

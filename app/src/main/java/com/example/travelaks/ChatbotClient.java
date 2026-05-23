@@ -5,6 +5,7 @@ import com.example.travelaks.data.model.ChatResponse;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -20,7 +21,11 @@ public class ChatbotClient {
     private static final String API_KEY  = BuildConfig.CHATBOT_API_KEY;
     private static final MediaType JSON  = MediaType.get("application/json; charset=utf-8");
 
-    private final OkHttpClient http = new OkHttpClient();
+    private final OkHttpClient http = new OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(90, TimeUnit.SECONDS)   // backend may cold-start on Render free tier
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .build();
     private final Gson gson = new Gson();
 
     public interface ChatCallback {

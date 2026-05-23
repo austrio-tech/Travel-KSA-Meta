@@ -36,12 +36,13 @@ public class HelpDeskActivity extends AppCompatActivity {
         FaqAdapter adapter = new FaqAdapter(faqs);
         recyclerView.setAdapter(adapter);
 
-        // Chat with AI button
+        // Chat with AI button — opens general assistant (no city context)
         Button btnChatAi = findViewById(R.id.btn_chat_ai);
-        btnChatAi.setOnClickListener(v ->
-            startActivity(new Intent(this, AiChatActivity.class))
-            // no city_name extra = general Travel KSA assistant
-        );
+        if (btnChatAi != null) {
+            btnChatAi.setOnClickListener(v -> {
+                startActivity(new Intent(HelpDeskActivity.this, AiChatActivity.class));
+            });
+        }
 
         progressBar.setVisibility(View.VISIBLE);
         FirebaseFirestore.getInstance()
