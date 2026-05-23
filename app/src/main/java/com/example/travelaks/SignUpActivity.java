@@ -41,6 +41,8 @@ public class SignUpActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password);
         btnContinue = findViewById(R.id.btn_continue);
 
+        findViewById(R.id.btn_back).setOnClickListener(v -> finish());
+
         btnContinue.setOnClickListener(v -> {
             String email = etEmail.getText().toString().trim();
             String password = etPassword.getText().toString().trim();

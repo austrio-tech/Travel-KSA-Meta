@@ -30,35 +30,32 @@ public class Tourist_Attractions_Riyadh extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
+
         TextView tvTitle = findViewById(R.id.tv_toolbar_title);
         if (tvTitle != null) tvTitle.setText("Attractions in " + cityName);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_attractions);
-        ProgressBar progressBar = findViewById(R.id.progress_bar);
+        RecyclerView rv = findViewById(R.id.recycler_attractions);
+        ProgressBar pb = findViewById(R.id.progress_bar);
+        rv.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Attraction> attractionList = new ArrayList<>();
-        AttractionAdapter adapter = new AttractionAdapter(this, attractionList);
-        recyclerView.setAdapter(adapter);
+        List<Attraction> list = new ArrayList<>();
+        AttractionAdapter adapter = new AttractionAdapter(this, list);
+        rv.setAdapter(adapter);
 
         final String city = cityName;
-        progressBar.setVisibility(View.VISIBLE);
-        FirebaseFirestore.getInstance()
-            .collection("attractions")
-            .whereEqualTo("city", city)
-            .get()
+        pb.setVisibility(View.VISIBLE);
+        FirebaseFirestore.getInstance().collection("attractions").whereEqualTo("city", city).get()
             .addOnSuccessListener(snap -> {
-                progressBar.setVisibility(View.GONE);
-                attractionList.clear();
-                attractionList.addAll(snap.toObjects(Attraction.class));
-                Collections.sort(attractionList, (a, b) -> Double.compare(b.getRating(), a.getRating()));
+                pb.setVisibility(View.GONE);
+                list.clear();
+                list.addAll(snap.toObjects(Attraction.class));
+                Collections.sort(list, (a, b) -> Double.compare(b.getRating(), a.getRating()));
                 adapter.notifyDataSetChanged();
             })
             .addOnFailureListener(e -> {
-                progressBar.setVisibility(View.GONE);
+                pb.setVisibility(View.GONE);
                 Toast.makeText(this, "Failed to load attractions: " + e.getMessage(), Toast.LENGTH_LONG).show();
             });
-
-        findViewById(R.id.btn_back).setOnClickListener(v -> finish());
     }
 }

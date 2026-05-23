@@ -5,19 +5,35 @@
     android:orientation="vertical"
     android:background="@drawable/profile">
 
-    <!-- عنوان -->
-    <TextView
-        android:id="@+id/tv_title"
+    <!-- Title bar with back arrow on the left -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="AI CHAT"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:padding="12dp"
-        android:background="#666666"
-        android:textColor="#FFFFFF" />
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/tourist_blue">
 
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text="←"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="AI CHAT"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:layout_marginEnd="48dp" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_messages"
@@ -32,18 +48,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:background="#DDDDDD">
+        android:background="#F1F5F9">
 
         <EditText
             android:id="@+id/edit_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="hint_message"
+            android:hint="Ask about this city…"
             android:padding="12dp"
             android:background="#FFFFFF"
-            android:textColor="#000000"
-            android:textSize="16sp"
+            android:textColor="#1E293B"
+            android:textColorHint="#94A3B8"
+            android:textSize="15sp"
             android:inputType="textMultiLine"
             android:minHeight="48dp" />
 
@@ -51,24 +68,12 @@
             android:id="@+id/btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="send"
-            android:backgroundTint="#666666"
+            android:text="Send"
+            android:backgroundTint="@color/tourist_blue"
             android:textColor="#FFFFFF"
+            android:textStyle="bold"
             android:padding="12dp"
+            android:layout_marginStart="6dp"
             android:minHeight="48dp" />
     </LinearLayout>
-
-
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:backgroundTint="#666666"
-        android:text="⬅️"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:padding="12dp"
-        android:minHeight="48dp" />
-
 </LinearLayout>

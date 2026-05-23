@@ -3,6 +3,7 @@ package com.example.travelaks;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.widget.Button;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -34,6 +35,13 @@ public class HelpDeskActivity extends AppCompatActivity {
         List<FaqItem> faqs = new ArrayList<>();
         FaqAdapter adapter = new FaqAdapter(faqs);
         recyclerView.setAdapter(adapter);
+
+        // Chat with AI button
+        Button btnChatAi = findViewById(R.id.btn_chat_ai);
+        btnChatAi.setOnClickListener(v ->
+            startActivity(new Intent(this, AiChatActivity.class))
+            // no city_name extra = general Travel KSA assistant
+        );
 
         progressBar.setVisibility(View.VISIBLE);
         FirebaseFirestore.getInstance()

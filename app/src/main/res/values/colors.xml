@@ -4,7 +4,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Brand -->
+    <!-- Tourist accent (user-facing screens) -->
+    <color name="tourist_blue">#0077B6</color>
+
+    <!-- Brand (admin) -->
     <color name="primary">#1A3C6E</color>
     <color name="primary_dark">#0D2647</color>
     <color name="primary_light">#2E5490</color>

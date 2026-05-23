@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RiyadhDetailsActivity extends AppCompatActivity {
@@ -14,20 +15,19 @@ public class RiyadhDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_riyadh_details);
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
+
         loadDescription("riyadh");
 
-        findViewById(R.id.btnHotels).setOnClickListener(v ->
-            openSection(activity_hotel_riyadh.class, "Riyadh"));
-        findViewById(R.id.btnAttractions).setOnClickListener(v ->
-            openSection(Tourist_Attractions_Riyadh.class, "Riyadh"));
-        findViewById(R.id.btnEvents).setOnClickListener(v ->
-            openSection(activity_activitiess_riyadh.class, "Riyadh"));
+        findViewById(R.id.btnHotels).setOnClickListener(v ->     openSection(activity_hotel_riyadh.class, "Riyadh"));
+        findViewById(R.id.btnAttractions).setOnClickListener(v -> openSection(Tourist_Attractions_Riyadh.class, "Riyadh"));
+        findViewById(R.id.btnEvents).setOnClickListener(v ->      openSection(activity_activitiess_riyadh.class, "Riyadh"));
         findViewById(R.id.btn_ask_ai).setOnClickListener(v -> {
             Intent i = new Intent(this, AiChatActivity.class);
             i.putExtra("city_name", "Riyadh");
             startActivity(i);
         });
-        findViewById(R.id.btn_back).setOnClickListener(v -> finish());
     }
 
     private void loadDescription(String cityId) {
@@ -35,8 +35,8 @@ public class RiyadhDetailsActivity extends AppCompatActivity {
         FirebaseFirestore.getInstance().collection("cities").document(cityId).get()
             .addOnSuccessListener(doc -> {
                 if (doc.exists() && tv != null) {
-                    String desc = doc.getString("description");
-                    if (desc != null) tv.setText(desc);
+                    String d = doc.getString("description");
+                    if (d != null) tv.setText(d);
                 }
             });
     }

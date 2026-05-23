@@ -18,8 +18,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "OPENAI_API_KEY", "\"${project.findProperty("OPENAI_API_KEY")}\"")
 
+        // Chatbot backend config — values come from gradle.properties
+        buildConfigField("String", "CHATBOT_BASE_URL", "\"${project.findProperty("CHATBOT_BASE_URL")}\"")
+        buildConfigField("String", "CHATBOT_API_KEY",  "\"${project.findProperty("CHATBOT_API_KEY")}\"")
     }
 
     buildFeatures {
@@ -50,6 +52,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.google.code.gson:gson:2.10.1")
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)

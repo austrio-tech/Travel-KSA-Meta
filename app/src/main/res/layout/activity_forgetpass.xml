@@ -4,6 +4,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/profile">
 
+    <!-- Back arrow — top left -->
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:text="←"
+        android:textSize="22sp"
+        android:textColor="#FFFFFF"
+        android:background="?attr/selectableItemBackgroundBorderless" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +43,11 @@
         android:text="Enter your email and we'll send you a reset link."
         android:textColor="#DDFFFFFF"
         android:textSize="15sp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:shadowColor="#AA000000"
+        android:shadowRadius="5"
+        android:shadowDx="0"
+        android:shadowDy="1" />
 
     <EditText
         android:id="@+id/et_new_password"
@@ -79,20 +97,5 @@
         android:textSize="16sp"
         android:textColor="#FFFFFF"
         android:background="@drawable/bg_btn_primary"
-        android:elevation="4dp" />
-
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_below="@id/btn_reset"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="28dp"
-        android:text="Back"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/bg_btn_secondary"
         android:elevation="4dp" />
 </RelativeLayout>

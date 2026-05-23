@@ -30,35 +30,32 @@ public class activity_activitiess_riyadh extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
+
         TextView tvTitle = findViewById(R.id.tv_toolbar_title);
         if (tvTitle != null) tvTitle.setText("Activities in " + cityName);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_activities);
-        ProgressBar progressBar = findViewById(R.id.progress_bar);
+        RecyclerView rv = findViewById(R.id.recycler_activities);
+        ProgressBar pb = findViewById(R.id.progress_bar);
+        rv.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<ActivityItem> activityList = new ArrayList<>();
-        ActivityAdapter adapter = new ActivityAdapter(this, activityList);
-        recyclerView.setAdapter(adapter);
+        List<ActivityItem> list = new ArrayList<>();
+        ActivityAdapter adapter = new ActivityAdapter(this, list);
+        rv.setAdapter(adapter);
 
         final String city = cityName;
-        progressBar.setVisibility(View.VISIBLE);
-        FirebaseFirestore.getInstance()
-            .collection("activities")
-            .whereEqualTo("city", city)
-            .get()
+        pb.setVisibility(View.VISIBLE);
+        FirebaseFirestore.getInstance().collection("activities").whereEqualTo("city", city).get()
             .addOnSuccessListener(snap -> {
-                progressBar.setVisibility(View.GONE);
-                activityList.clear();
-                activityList.addAll(snap.toObjects(ActivityItem.class));
-                Collections.sort(activityList, (a, b) -> Double.compare(b.getRating(), a.getRating()));
+                pb.setVisibility(View.GONE);
+                list.clear();
+                list.addAll(snap.toObjects(ActivityItem.class));
+                Collections.sort(list, (a, b) -> Double.compare(b.getRating(), a.getRating()));
                 adapter.notifyDataSetChanged();
             })
             .addOnFailureListener(e -> {
-                progressBar.setVisibility(View.GONE);
+                pb.setVisibility(View.GONE);
                 Toast.makeText(this, "Failed to load activities: " + e.getMessage(), Toast.LENGTH_LONG).show();
             });
-
-        findViewById(R.id.btn_back).setOnClickListener(v -> finish());
     }
 }

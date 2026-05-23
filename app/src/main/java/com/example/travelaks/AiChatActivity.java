@@ -5,43 +5,40 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.travelaks.data.model.Message;
 
+import com.example.travelaks.data.model.ChatResponse;
+import com.example.travelaks.data.model.Message;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class AiChatActivity extends AppCompatActivity {
+
+    private static final String TAG = "AiChatActivity";
 
     private ChatAdapter chatAdapter;
     private ArrayList<Message> messages;
     private RecyclerView recyclerView;
+    private EditText etInput;
 
-    private static final String OPENAI_API_KEY = BuildConfig.OPENAI_API_KEY;
-    private final OkHttpClient client = new OkHttpClient();
+    // Backend chatbot client
+    private final ChatbotClient chatbot = new ChatbotClient();
+    private String sessionId = null; // null = new session; updated on first response
 
+    // City context — prefixed to every user message sent to the backend
+    private String cityName;
+
+    // Firestore persistence
     private FirebaseFirestore db;
-    private String sessionId;
-    private String currentCity;
+    private String firestoreSessionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,65 +50,66 @@ public class AiChatActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         recyclerView = findViewById(R.id.recycler_messages);
-        EditText etMessageInput = findViewById(R.id.edit_message);
+        etInput      = findViewById(R.id.edit_message);
         Button btnSend = findViewById(R.id.btn_send);
         Button btnBack = findViewById(R.id.btn_back);
         TextView tvTitle = findViewById(R.id.tv_title);
 
-        currentCity = getIntent().getStringExtra("city_name");
-        if (tvTitle != null) {
-            tvTitle.setText(currentCity != null ? "AI – " + currentCity : "AI CHAT");
-        }
+        cityName = getIntent().getStringExtra("city_name");
+        if (tvTitle != null)
+            tvTitle.setText(cityName != null ? "AI – " + cityName : "AI Assistant");
 
         messages = new ArrayList<>();
         chatAdapter = new ChatAdapter(messages);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(chatAdapter);
 
-        if (currentCity != null) {
-            addMessage("Hello! I am your AI assistant. Ask me anything about " + currentCity + " 🌟", false);
-        }
+        // Greeting — not sent to backend, purely UI
+        String greeting = cityName != null
+            ? "Hello! I'm your AI travel assistant for " + cityName + ". Ask me anything — hotels, attractions, activities, tips, and more! 🌟"
+            : "Hello! I'm your Travel KSA assistant. Ask me anything about Saudi Arabia's cities, hotels, attractions, and activities!";
+        addMessage(greeting, false);
 
-        createChatSession();
+        createFirestoreSession();
 
         btnSend.setOnClickListener(v -> {
-            String text = etMessageInput.getText().toString().trim();
+            String text = etInput.getText().toString().trim();
             if (!text.isEmpty()) {
-                addMessage(text, true);
-                saveMessageToFirestore(text, true);
-                etMessageInput.setText("");
-                sendMessageToOpenAI(text, currentCity);
+                etInput.setText("");
+                sendMessage(text);
             }
         });
 
         if (btnBack != null) btnBack.setOnClickListener(v -> finish());
     }
 
-    private void createChatSession() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        String uid = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : "anonymous";
+    private void sendMessage(String userText) {
+        // Show user message immediately
+        addMessage(userText, true);
+        saveToFirestore(userText, true);
 
-        Map<String, Object> session = new HashMap<>();
-        session.put("userId", uid);
-        session.put("city", currentCity != null ? currentCity : "");
-        session.put("startedAt", Timestamp.now());
+        // Prefix with city context if applicable
+        String question = (cityName != null && !cityName.isEmpty())
+                ? "In " + cityName + ": " + userText
+                : userText;
 
-        db.collection("chatSessions").add(session)
-            .addOnSuccessListener(ref -> sessionId = ref.getId())
-            .addOnFailureListener(e -> Log.e("AiChat", "Session creation failed: " + e.getMessage()));
-    }
+        // Call backend — pass sessionId (null on first call = new session)
+        chatbot.sendMessage(question, sessionId, new ChatbotClient.ChatCallback() {
+            @Override
+            public void onSuccess(ChatResponse response) {
+                sessionId = response.session_id; // save for next turn
+                runOnUiThread(() -> {
+                    addMessage(response.answer, false);
+                    saveToFirestore(response.answer, false);
+                });
+            }
 
-    private void saveMessageToFirestore(String text, boolean isUser) {
-        if (sessionId == null) return;
-
-        Map<String, Object> msg = new HashMap<>();
-        msg.put("text", text);
-        msg.put("isUser", isUser);
-        msg.put("timestamp", Timestamp.now());
-
-        db.collection("chatSessions").document(sessionId)
-            .collection("messages").add(msg)
-            .addOnFailureListener(e -> Log.e("AiChat", "Save message failed: " + e.getMessage()));
+            @Override
+            public void onError(String error) {
+                Log.e(TAG, "Chatbot error: " + error);
+                runOnUiThread(() -> addMessage("⚠️ " + error + ". Please try again.", false));
+            }
+        });
     }
 
     private void addMessage(String text, boolean isUser) {
@@ -120,72 +118,33 @@ public class AiChatActivity extends AppCompatActivity {
         recyclerView.scrollToPosition(messages.size() - 1);
     }
 
-    private void sendMessageToOpenAI(String userMessage, String cityName) {
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        JSONObject json = new JSONObject();
-        try {
-            json.put("model", "gpt-3.5-turbo");
-            JSONArray messagesArray = new JSONArray();
-            JSONObject userObj = new JSONObject();
-            userObj.put("role", "user");
-            userObj.put("content", userMessage + (cityName != null ? " (about " + cityName + ")" : ""));
-            messagesArray.put(userObj);
-            json.put("messages", messagesArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    // ── Firestore persistence ──────────────────────────────────
 
-        Request request = new Request.Builder()
-            .url("https://api.openai.com/v1/chat/completions")
-            .header("Authorization", "Bearer " + OPENAI_API_KEY)
-            .post(RequestBody.create(JSON, json.toString()))
-            .build();
+    private void createFirestoreSession() {
+        String uid = FirebaseAuth.getInstance().getCurrentUser() != null
+                ? FirebaseAuth.getInstance().getCurrentUser().getUid()
+                : "anonymous";
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                String error = "❌ Connection error: " + e.getMessage();
-                runOnUiThread(() -> {
-                    addMessage(error, false);
-                    saveMessageToFirestore(error, false);
-                });
-            }
+        Map<String, Object> session = new HashMap<>();
+        session.put("userId", uid);
+        session.put("city", cityName != null ? cityName : "general");
+        session.put("startedAt", Timestamp.now());
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    try {
-                        String responseData = response.body().string();
-                        JSONObject jsonObject = new JSONObject(responseData);
-                        JSONArray choices = jsonObject.optJSONArray("choices");
-                        String aiReply = "⚠️ No reply from AI";
-                        if (choices != null && choices.length() > 0) {
-                            JSONObject choice = choices.getJSONObject(0);
-                            JSONObject messageObj = choice.optJSONObject("message");
-                            if (messageObj != null) {
-                                aiReply = messageObj.optString("content", aiReply);
-                            }
-                        }
-                        String finalReply = aiReply;
-                        runOnUiThread(() -> {
-                            addMessage(finalReply, false);
-                            saveMessageToFirestore(finalReply, false);
-                        });
-                    } catch (JSONException e) {
-                        String error = "⚠️ Error parsing AI response";
-                        runOnUiThread(() -> {
-                            addMessage(error, false);
-                            saveMessageToFirestore(error, false);
-                        });
-                    }
-                } else {
-                    String error = "❌ Error from OpenAI: " + response.code();
-                    runOnUiThread(() -> {
-                        addMessage(error, false);
-                        saveMessageToFirestore(error, false);
-                    });
-                }
-            }
-        });
+        db.collection("chatSessions").add(session)
+            .addOnSuccessListener(ref -> firestoreSessionId = ref.getId())
+            .addOnFailureListener(e -> Log.e(TAG, "Session create failed: " + e.getMessage()));
+    }
+
+    private void saveToFirestore(String text, boolean isUser) {
+        if (firestoreSessionId == null) return;
+
+        Map<String, Object> msg = new HashMap<>();
+        msg.put("text", text);
+        msg.put("isUser", isUser);
+        msg.put("timestamp", Timestamp.now());
+
+        db.collection("chatSessions").document(firestoreSessionId)
+            .collection("messages").add(msg)
+            .addOnFailureListener(e -> Log.e(TAG, "Save message failed: " + e.getMessage()));
     }
 }

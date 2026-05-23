@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,31 +9,21 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="#666666"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/tourist_blue"
+        android:elevation="4dp"
+        app:navigationIcon="@drawable/ic_back"
+        app:navigationIconTint="#FFFFFF">
 
         <TextView
             android:id="@+id/tv_toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Activities"
-            android:textSize="22sp"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
     </androidx.appcompat.widget.Toolbar>
-
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="⬅️"
-        android:textSize="18sp"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#666666"
-        android:layout_margin="12dp"
-        android:padding="10dp" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -47,5 +38,4 @@
         android:layout_height="match_parent"
         android:padding="16dp"
         android:clipToPadding="false" />
-
 </LinearLayout>

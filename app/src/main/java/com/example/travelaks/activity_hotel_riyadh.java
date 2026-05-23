@@ -30,35 +30,32 @@ public class activity_hotel_riyadh extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
+
         TextView tvTitle = findViewById(R.id.tv_toolbar_title);
         if (tvTitle != null) tvTitle.setText("Hotels in " + cityName);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_hotels);
-        ProgressBar progressBar = findViewById(R.id.progress_bar);
+        RecyclerView rv = findViewById(R.id.recycler_hotels);
+        ProgressBar pb = findViewById(R.id.progress_bar);
+        rv.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Hotel> hotelList = new ArrayList<>();
         HotelAdapter adapter = new HotelAdapter(this, hotelList);
-        recyclerView.setAdapter(adapter);
+        rv.setAdapter(adapter);
 
         final String city = cityName;
-        progressBar.setVisibility(View.VISIBLE);
-        FirebaseFirestore.getInstance()
-            .collection("hotels")
-            .whereEqualTo("city", city)
-            .get()
+        pb.setVisibility(View.VISIBLE);
+        FirebaseFirestore.getInstance().collection("hotels").whereEqualTo("city", city).get()
             .addOnSuccessListener(snap -> {
-                progressBar.setVisibility(View.GONE);
+                pb.setVisibility(View.GONE);
                 hotelList.clear();
                 hotelList.addAll(snap.toObjects(Hotel.class));
                 Collections.sort(hotelList, (a, b) -> Double.compare(b.getRating(), a.getRating()));
                 adapter.notifyDataSetChanged();
             })
             .addOnFailureListener(e -> {
-                progressBar.setVisibility(View.GONE);
+                pb.setVisibility(View.GONE);
                 Toast.makeText(this, "Failed to load hotels: " + e.getMessage(), Toast.LENGTH_LONG).show();
             });
-
-        findViewById(R.id.btn_back).setOnClickListener(v -> finish());
     }
 }
